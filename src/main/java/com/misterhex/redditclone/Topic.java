@@ -8,6 +8,8 @@ public class Topic {
 
     private String headline;
 
+    public Topic(){ }
+
     public Topic(String headline){
         this.uuid = UUID.randomUUID();
         this.headline = headline;
