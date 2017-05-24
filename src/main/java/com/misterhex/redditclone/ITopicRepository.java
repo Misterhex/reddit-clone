@@ -7,4 +7,6 @@ import java.util.Collection;
  */
 public interface ITopicRepository {
     Collection<Topic> Top20();
+
+    Boolean TryAddTopic();
 }

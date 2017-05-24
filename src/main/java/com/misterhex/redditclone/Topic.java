@@ -1,13 +1,23 @@
 package com.misterhex.redditclone;
 
-public class Topic {
-    private String _topicText;
+import java.util.UUID;
 
-    public String get_topicText() {
-        return _topicText;
+public class Topic {
+
+    private UUID uuid;
+
+    private String headline;
+
+    public Topic(String headline){
+        this.uuid = UUID.randomUUID();
+        this.headline = headline;
     }
 
-    public void set_topicText(String _topicText) {
-        this._topicText = _topicText;
+    public String getHeadline() {
+        return headline;
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 }
