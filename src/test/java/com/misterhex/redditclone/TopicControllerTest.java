@@ -13,7 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.xml.ws.Response;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -40,11 +43,20 @@ public class TopicControllerTest {
     }
 
     @Test
-    public void top20_Ok() throws Exception {
+    public void top20_afterAddTopics_returnNumberOfCorrectTopics() throws Exception {
 
-        ResponseEntity<Topic[]> responseEntity = this.restTemplate.getForEntity("http://localhost:" + port + "/" + "api/topics", Topic[].class);
+        Map<String, String> postBody = new HashMap<String, String>() {{
+            put("headline", "hello world");
+        }};
 
-        assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+        ResponseEntity<Object> postResp = this.restTemplate.postForEntity("http://localhost:" + port + "/" + "api/topics", postBody, Object.class);
+
+        assertEquals(postResp.getStatusCode(), HttpStatus.CREATED);
+
+        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity("http://localhost:" + port + "/" + "api/topics", Topic[].class);
+
+        assertEquals(getResp.getStatusCode(), HttpStatus.OK);
+        assertEquals(getResp.getBody().length, 1);
     }
 
     @Test

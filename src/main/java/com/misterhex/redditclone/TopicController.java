@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/topics")
@@ -23,21 +24,18 @@ public class TopicController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Topic>> Top20() {
-        Collection<Topic> top20 = this.topicRepository.Top20();
+        Collection<Topic> top20 = this.topicRepository.top20();
         return ResponseEntity.ok(top20);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity CreateTopic(@RequestBody String headline) {
-        if (headline.isEmpty() || headline.length() > 255) {
+    public ResponseEntity CreateTopic(@RequestBody Map<String,String> body) {
+        if (body != null && body.get("headline") != null && body.get("headline").length() > 255) {
             return ResponseEntity.badRequest().build();
         }
 
-        boolean isCreated = this.topicRepository.TryAddTopic();
+        this.topicRepository.addTopic(body.get("headline"));
 
-        if (isCreated)
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        else
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
