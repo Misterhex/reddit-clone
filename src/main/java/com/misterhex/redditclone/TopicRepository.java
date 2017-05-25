@@ -17,7 +17,18 @@ public class TopicRepository implements ITopicRepository {
 
     @Override
     public Collection<Topic> top20() {
-        return treeSet.stream().collect(Collectors.toList());
+
+        Iterator<Topic> iterator = treeSet.descendingIterator();
+        List<Topic> lst = new ArrayList<>();
+        while(iterator.hasNext() && lst.size() < 20)
+        {
+            Topic t = iterator.next();
+            if (t != null && !t.isDeleted()) {
+                lst.add(t);
+            }
+        }
+
+        return lst;
     }
 
     @Override
@@ -25,18 +36,18 @@ public class TopicRepository implements ITopicRepository {
         Topic t = new Topic(headline);
         hashMap.put(t.getUuid(), t);
         treeSet.add(t);
-        TrimSet();
         return t;
     }
 
     public boolean remove(UUID topicId) {
 
-        Topic t = hashMap.remove(topicId);
+        Topic t = hashMap.get(topicId);
 
         if (t == null)
             return false;
 
-        TrimSet();
+        t.setDeleted(true);
+
         return true;
     }
 
@@ -48,33 +59,20 @@ public class TopicRepository implements ITopicRepository {
 
         Topic t = hashMap.get(vote.getTopicId());
 
-        if (t == null)
+        if (t == null || t.isDeleted())
             throw new IllegalStateException();
 
+        Topic copy = t.Copy();
+
+        t.setDeleted(true);
+
         if (vote.getVoteType().equals("up"))
-            t.setVote(t.getVote() + 1);
+            copy.setVote(copy.getVote() + 1);
         else if (vote.getVoteType().equals("down"))
-            t.setVote(t.getVote() - 1);
+            copy.setVote(copy.getVote() - 1);
         else
             throw new IllegalStateException();
 
-        // re-sort.
-        this.treeSet.removeIf(i-> i.getUuid() == vote.getTopicId());
-        this.treeSet.add(t);
-    }
-
-    private void TrimSet() {
-
-        Iterator<Topic> iterator = this.treeSet.descendingIterator();
-
-        List<Topic> lst = new ArrayList<>();
-        while (iterator.hasNext() && lst.size() < 20) {
-            Topic t = iterator.next();
-            if (t != null)
-                lst.add(t);
-        }
-
-        this.treeSet.clear();
-        this.treeSet.addAll(lst);
+        treeSet.add(copy);
     }
 }

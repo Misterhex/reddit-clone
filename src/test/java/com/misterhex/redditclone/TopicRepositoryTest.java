@@ -47,6 +47,7 @@ public class TopicRepositoryTest {
         repository.vote(new Vote(topics.get(8).getUuid(), "up"));
 
         repository.vote(new Vote(topics.get(5).getUuid(), "down"));
+        repository.vote(new Vote(topics.get(1).getUuid(), "down"));
 
         Collection<Topic> sorted = repository.top20();
     }
