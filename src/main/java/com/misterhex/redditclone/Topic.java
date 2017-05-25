@@ -29,4 +29,8 @@ public class Topic {
     public int getVote() {
         return vote;
     }
+
+    public void setVote(int vote) {
+        this.vote = vote;
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.xml.ws.Response;
+import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,11 +50,13 @@ public class TopicControllerTest {
             put("headline", "hello world");
         }};
 
-        ResponseEntity<Object> postResp = this.restTemplate.postForEntity("http://localhost:" + port + "/" + "api/topics", postBody, Object.class);
+        URI endpoint = new URI("http://localhost:" + port + "/" + "api/topics");
+
+        ResponseEntity<Object> postResp = this.restTemplate.postForEntity(endpoint, postBody, Object.class);
 
         assertEquals(postResp.getStatusCode(), HttpStatus.CREATED);
 
-        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity("http://localhost:" + port + "/" + "api/topics", Topic[].class);
+        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity(endpoint, Topic[].class);
 
         assertEquals(getResp.getStatusCode(), HttpStatus.OK);
         assertEquals(getResp.getBody().length, 1);

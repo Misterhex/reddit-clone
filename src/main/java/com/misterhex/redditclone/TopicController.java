@@ -22,7 +22,7 @@ public class TopicController {
         this.topicRepository = topicRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(path = "top20", method = RequestMethod.GET)
     public ResponseEntity<Collection<Topic>> Top20() {
         Collection<Topic> top20 = this.topicRepository.top20();
         return ResponseEntity.ok(top20);
@@ -34,7 +34,7 @@ public class TopicController {
             return ResponseEntity.badRequest().build();
         }
 
-        this.topicRepository.addTopic(body.get("headline"));
+        this.topicRepository.add(body.get("headline"));
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

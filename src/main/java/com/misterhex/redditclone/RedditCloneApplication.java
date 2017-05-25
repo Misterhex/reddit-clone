@@ -1,8 +1,10 @@
 package com.misterhex.redditclone;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 @SpringBootApplication
 public class RedditCloneApplication {
@@ -15,4 +17,11 @@ public class RedditCloneApplication {
 	public ITopicRepository TopicRepository() {
 		return new TopicRepository();
 	}
+
+	@Bean(name="ValidVoteValues")
+	public String[] ValidVoteValues(){
+		String[] validVoteTypes = new String[]{ "up", "down"};
+		return validVoteTypes;
+	}
+
 }
