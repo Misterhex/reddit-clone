@@ -30,7 +30,7 @@ public class TopicController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity CreateTopic(@RequestBody Map<String,String> body) {
-        if (body != null && body.get("headline") != null && body.get("headline").length() > 255) {
+        if (body == null || body.get("headline") == null || body.get("headline").length() > 255) {
             return ResponseEntity.badRequest().build();
         }
 

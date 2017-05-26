@@ -21,9 +21,6 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by yh.tan on 5/24/2017.
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TopicControllerTest {
@@ -34,9 +31,16 @@ public class TopicControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+
+    final Map<String, String> postBody = new HashMap<String, String>() {{
+        put("headline", "hello world");
+    }};
+
+    String endpoint;
+
     @Before
     public void setUp() throws Exception {
-
+        endpoint = "http://localhost:" + port + "/" + "api/topics/";
     }
 
     @After
@@ -46,24 +50,33 @@ public class TopicControllerTest {
     @Test
     public void top20_afterAddTopics_returnNumberOfCorrectTopics() throws Exception {
 
-        Map<String, String> postBody = new HashMap<String, String>() {{
-            put("headline", "hello world");
-        }};
-
-        URI endpoint = new URI("http://localhost:" + port + "/" + "api/topics");
-
         ResponseEntity<Object> postResp = this.restTemplate.postForEntity(endpoint, postBody, Object.class);
 
         assertEquals(postResp.getStatusCode(), HttpStatus.CREATED);
 
-        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity(endpoint, Topic[].class);
+        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity(endpoint + "top20", Topic[].class);
 
         assertEquals(getResp.getStatusCode(), HttpStatus.OK);
         assertEquals(getResp.getBody().length, 1);
     }
 
     @Test
-    public void createTopic() throws Exception {
+    public void createTopic_validBody_returnHttpCreated() throws Exception {
+
+        ResponseEntity<Object> postResp = this.restTemplate.postForEntity(endpoint, postBody, Object.class);
+
+        assertEquals(postResp.getStatusCode(), HttpStatus.CREATED);
+
+    }
+
+    @Test
+    public void createTopic_invalidBody_badRequest() throws Exception {
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        ResponseEntity<Object> postResp = this.restTemplate.postForEntity(endpoint, hashMap, Object.class);
+
+        assertEquals(HttpStatus.BAD_REQUEST, postResp.getStatusCode());
     }
 
 }
