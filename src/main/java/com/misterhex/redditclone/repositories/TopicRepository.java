@@ -2,7 +2,6 @@ package com.misterhex.redditclone.repositories;
 
 import com.misterhex.redditclone.Topic;
 import com.misterhex.redditclone.Vote;
-import com.misterhex.redditclone.repositories.ITopicRepository;
 
 import java.util.*;
 

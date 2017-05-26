@@ -11,11 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import static org.junit.Assert.*;
 
-/**
- * Created by yh.tan on 5/25/2017.
- */
 public class TopicRepositoryTest {
-
 
     private TopicRepository repository;
 

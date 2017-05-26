@@ -1,7 +1,6 @@
 package com.misterhex.redditclone;
 
 import com.misterhex.redditclone.repositories.ITopicRepository;
-import com.misterhex.redditclone.repositories.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
