@@ -5,13 +5,11 @@ import java.util.stream.Collectors;
 
 public class TopicRepository implements ITopicRepository {
 
-    private Object gate = new Object();
-
     private TreeSet<Topic> treeSet;
     private HashMap<UUID, Topic> hashMap;
 
     public TopicRepository() {
-        treeSet = new TreeSet<>((o1, o2) -> o1.getVote() > o2.getVote() ? -1 : 1);
+        treeSet = new TreeSet<>((o1, o2) -> o1.getVote() > o2.getVote() ? 1 : -1);
         hashMap = new HashMap<>();
     }
 

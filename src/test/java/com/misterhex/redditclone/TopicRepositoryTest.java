@@ -62,12 +62,12 @@ public class TopicRepositoryTest {
 
         List<Topic> top20 = repository.top20().stream().collect(Collectors.toList());
 
-        assertEquals("headline9", top20.get(0));
-        assertEquals("headline10", top20.get(1));
-        assertEquals("headline15", top20.get(2));
-        assertEquals("headline8", top20.get(3));
+        assertEquals("headline9", top20.get(0).getHeadline());
+        assertEquals("headline10", top20.get(1).getHeadline());
+        assertEquals("headline15", top20.get(2).getHeadline());
+        assertEquals("headline8", top20.get(3).getHeadline());
 
-        assertTrue(top20.stream().allMatch(i-> i.getVote() > 0));
+        assertTrue(top20.stream().allMatch(i-> i.getVote() >= 0));
     }
 
     @Test
