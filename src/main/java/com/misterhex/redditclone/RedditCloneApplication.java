@@ -1,10 +1,11 @@
 package com.misterhex.redditclone;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.misterhex.redditclone.repositories.ITopicRepository;
+import com.misterhex.redditclone.repositories.ReadWriteLockTopicRepository;
+import com.misterhex.redditclone.repositories.TopicRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 
 @SpringBootApplication
 public class RedditCloneApplication {
@@ -15,7 +16,7 @@ public class RedditCloneApplication {
 
 	@Bean
 	public ITopicRepository TopicRepository() {
-		return new TopicRepository();
+		return new ReadWriteLockTopicRepository(new TopicRepository());
 	}
 
 	@Bean(name="ValidVoteValues")

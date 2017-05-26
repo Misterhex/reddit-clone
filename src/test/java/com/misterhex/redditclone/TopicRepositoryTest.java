@@ -1,5 +1,6 @@
 package com.misterhex.redditclone;
 
+import com.misterhex.redditclone.repositories.TopicRepository;
 import org.junit.Before;
 import org.junit.Test;
 

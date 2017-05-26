@@ -1,5 +1,6 @@
 package com.misterhex.redditclone;
 
+import com.misterhex.redditclone.repositories.ITopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,13 @@ public class TopicController {
     }
 
     @RequestMapping(path = "top20", method = RequestMethod.GET)
-    public ResponseEntity<Collection<Topic>> Top20() {
+    public ResponseEntity<Collection<Topic>> top20() {
         Collection<Topic> top20 = this.topicRepository.top20();
         return ResponseEntity.ok(top20);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity CreateTopic(@RequestBody Map<String,String> body) {
+    public ResponseEntity createTopic(@RequestBody Map<String,String> body) {
         if (body == null || body.get("headline") == null || body.get("headline").length() > 255) {
             return ResponseEntity.badRequest().build();
         }

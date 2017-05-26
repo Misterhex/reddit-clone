@@ -1,7 +1,10 @@
-package com.misterhex.redditclone;
+package com.misterhex.redditclone.repositories;
+
+import com.misterhex.redditclone.Topic;
+import com.misterhex.redditclone.Vote;
+import com.misterhex.redditclone.repositories.ITopicRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TopicRepository implements ITopicRepository {
 
@@ -51,7 +54,7 @@ public class TopicRepository implements ITopicRepository {
     }
 
     @Override
-    public boolean IsExist(UUID topicId) {
+    public boolean isExist(UUID topicId) {
         return hashMap.containsKey(topicId);
     }
 

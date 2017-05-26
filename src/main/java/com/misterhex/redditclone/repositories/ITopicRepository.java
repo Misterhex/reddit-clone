@@ -1,11 +1,11 @@
-package com.misterhex.redditclone;
+package com.misterhex.redditclone.repositories;
+
+import com.misterhex.redditclone.Topic;
+import com.misterhex.redditclone.Vote;
 
 import java.util.Collection;
 import java.util.UUID;
 
-/**
- * Created by yh.tan on 5/24/2017.
- */
 public interface ITopicRepository {
     Collection<Topic> top20();
 
@@ -13,7 +13,7 @@ public interface ITopicRepository {
 
      boolean remove(UUID topicId);
 
-    boolean IsExist(UUID topicId);
+    boolean isExist(UUID topicId);
 
     void vote(Vote vote);
 }

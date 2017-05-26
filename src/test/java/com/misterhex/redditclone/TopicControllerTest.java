@@ -1,25 +1,21 @@
 package com.misterhex.redditclone;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.xml.ws.Response;
-import java.net.URI;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -31,7 +27,6 @@ public class TopicControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-
     final Map<String, String> postBody = new HashMap<String, String>() {{
         put("headline", "hello world");
     }};
@@ -41,26 +36,27 @@ public class TopicControllerTest {
     @Before
     public void setUp() throws Exception {
         endpoint = "http://localhost:" + port + "/" + "api/topics/";
-    }
 
-    @After
-    public void tearDown() throws Exception {
+        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity(endpoint + "top20", Topic[].class);
+        int count = getResp.getBody().length;
     }
 
     @Test
+    @DirtiesContext
     public void top20_afterAddTopics_returnNumberOfCorrectTopics() throws Exception {
 
         ResponseEntity<Object> postResp = this.restTemplate.postForEntity(endpoint, postBody, Object.class);
-
         assertEquals(postResp.getStatusCode(), HttpStatus.CREATED);
 
         ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity(endpoint + "top20", Topic[].class);
 
         assertEquals(getResp.getStatusCode(), HttpStatus.OK);
-        assertEquals(getResp.getBody().length, 1);
+        Topic[] topics = getResp.getBody();
+        assertEquals(topics.length, 1);
     }
 
     @Test
+    @DirtiesContext
     public void createTopic_validBody_returnHttpCreated() throws Exception {
 
         ResponseEntity<Object> postResp = this.restTemplate.postForEntity(endpoint, postBody, Object.class);
@@ -70,6 +66,7 @@ public class TopicControllerTest {
     }
 
     @Test
+    @DirtiesContext
     public void createTopic_invalidBody_badRequest() throws Exception {
 
         HashMap<String, String> hashMap = new HashMap<>();
@@ -78,5 +75,4 @@ public class TopicControllerTest {
 
         assertEquals(HttpStatus.BAD_REQUEST, postResp.getStatusCode());
     }
-
 }
