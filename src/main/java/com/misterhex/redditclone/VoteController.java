@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 
-/**
- * Created by yh.tan on 5/24/2017.
- */
 @RestController
 @RequestMapping("api/votes")
 public class VoteController {

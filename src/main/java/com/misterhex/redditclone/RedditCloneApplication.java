@@ -15,7 +15,7 @@ public class RedditCloneApplication {
 	}
 
 	@Bean
-	public ITopicRepository TopicRepository() {
+	public ITopicRepository ReadWriteLockTopicRepository() {
 		return new ReadWriteLockTopicRepository(new TopicRepository());
 	}
 
