@@ -1,22 +1,32 @@
 package com.misterhex.redditclone;
 
+import jdk.nashorn.internal.objects.annotations.Setter;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import static org.junit.Assert.*;
 
 /**
  * Created by yh.tan on 5/25/2017.
  */
 public class TopicRepositoryTest {
 
+
+    private TopicRepository repository;
+
+    @Before
+    public void setup(){
+        repository = new TopicRepository();
+    }
+
     @Test
     public void top20() throws Exception {
-
-        TopicRepository repository = new TopicRepository();
 
         List<String> headlines = IntStream.rangeClosed(0, 30).boxed().map(i -> "headline" + i.toString()).collect(Collectors.toList());
 
@@ -27,6 +37,12 @@ public class TopicRepositoryTest {
             topics.add(t);
         }
 
+        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
+        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
+        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
+        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
+        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
+
         repository.vote(new Vote(topics.get(10).getUuid(), "up"));
         repository.vote(new Vote(topics.get(10).getUuid(), "up"));
         repository.vote(new Vote(topics.get(10).getUuid(), "up"));
@@ -35,41 +51,52 @@ public class TopicRepositoryTest {
         repository.vote(new Vote(topics.get(15).getUuid(), "up"));
         repository.vote(new Vote(topics.get(15).getUuid(), "up"));
         repository.vote(new Vote(topics.get(15).getUuid(), "up"));
-
-
-        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
-        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
-        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
-        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
-        repository.vote(new Vote(topics.get(9).getUuid(), "up"));
 
         repository.vote(new Vote(topics.get(8).getUuid(), "up"));
         repository.vote(new Vote(topics.get(8).getUuid(), "up"));
 
-        repository.vote(new Vote(topics.get(5).getUuid(), "down"));
+        repository.vote(new Vote(topics.get(0).getUuid(), "down"));
+        repository.vote(new Vote(topics.get(0).getUuid(), "down"));
+
         repository.vote(new Vote(topics.get(1).getUuid(), "down"));
 
-        Collection<Topic> sorted = repository.top20();
+        List<Topic> top20 = repository.top20().stream().collect(Collectors.toList());
+
+        assertEquals("headline9", top20.get(0));
+        assertEquals("headline10", top20.get(1));
+        assertEquals("headline15", top20.get(2));
+        assertEquals("headline8", top20.get(3));
+
+        assertTrue(top20.stream().allMatch(i-> i.getVote() > 0));
     }
 
     @Test
     public void add() throws Exception {
 
-        TopicRepository repository = new TopicRepository();
+        repository = new TopicRepository();
 
-        List<String> headlines = IntStream.rangeClosed(1, 30).boxed().map(i -> "headline" + i.toString()).collect(Collectors.toList());
+        List<String> headlines = IntStream.rangeClosed(1, 20).boxed().map(i -> "headline" + i.toString()).collect(Collectors.toList());
 
         for (String headline : headlines) {
             repository.add(headline);
         }
+
+        assertEquals(20, repository.top20().size());
     }
 
     @Test
     public void remove() throws Exception {
-    }
 
-    @Test
-    public void tryVote() throws Exception {
-    }
+        List<String> headlines = IntStream.rangeClosed(1, 30).boxed().map(i -> "headline" + i.toString()).collect(Collectors.toList());
 
+        Topic last = null;
+        for (String headline : headlines) {
+            last = repository.add(headline);
+        }
+
+        UUID lastUuid = last.getUuid();
+        repository.remove(lastUuid);
+
+        assertFalse(repository.top20().stream().anyMatch(i-> i.getUuid() == lastUuid));
+    }
 }

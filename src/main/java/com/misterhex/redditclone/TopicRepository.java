@@ -39,6 +39,7 @@ public class TopicRepository implements ITopicRepository {
         return t;
     }
 
+    @Override
     public boolean remove(UUID topicId) {
 
         Topic t = hashMap.get(topicId);
@@ -51,10 +52,12 @@ public class TopicRepository implements ITopicRepository {
         return true;
     }
 
+    @Override
     public boolean IsExist(UUID topicId) {
         return hashMap.containsKey(topicId);
     }
 
+    @Override
     public void vote(Vote vote) {
 
         Topic t = hashMap.get(vote.getTopicId());
@@ -63,7 +66,6 @@ public class TopicRepository implements ITopicRepository {
             throw new IllegalStateException();
 
         Topic copy = t.Copy();
-
         t.setDeleted(true);
 
         if (vote.getVoteType().equals("up"))
@@ -74,5 +76,6 @@ public class TopicRepository implements ITopicRepository {
             throw new IllegalStateException();
 
         treeSet.add(copy);
+        hashMap.put(copy.getUuid(), copy);
     }
 }
