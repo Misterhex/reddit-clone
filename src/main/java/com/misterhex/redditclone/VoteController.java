@@ -37,7 +37,9 @@ public class VoteController {
         if (!Arrays.stream(this.validVoteValues).anyMatch(i-> i.equals(vote.getVoteType())))
             throw new IllegalArgumentException();
 
-        return ResponseEntity.badRequest().build();
+        topicRepository.vote(vote);
+
+        return ResponseEntity.ok().build();
     }
 }
 

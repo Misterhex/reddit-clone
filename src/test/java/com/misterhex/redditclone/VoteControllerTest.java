@@ -53,16 +53,20 @@ public class VoteControllerTest {
     }
 
     @Test
-    public void voteTopic_upvote_topicVoteIncreased() throws Exception {
+    public void voteTopic_upVote_topicVoteIncreased() throws Exception {
 
         // get created topic
         Topic[] topics = this.restTemplate.getForObject(new URI(topicEndpoint + "top20"), Topic[].class);
         UUID topicId = topics[0].getUuid();
+        assertEquals(0, topics[0].getVote());
 
         HttpEntity<Vote> httpEntity = new HttpEntity<Vote>(new Vote(topicId, "up"));
 
         ResponseEntity<Object> resp = this.restTemplate.postForEntity(this.voteEndpoint, httpEntity, Object.class);
-        assertEquals(resp.getStatusCode(), HttpStatus.CREATED);
+        assertEquals(resp.getStatusCode(), HttpStatus.OK);
+
+        topics = this.restTemplate.getForObject(new URI(topicEndpoint + "top20"), Topic[].class);
+        assertEquals(1, topics[0].getVote());
     }
 
 }
