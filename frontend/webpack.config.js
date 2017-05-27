@@ -9,23 +9,27 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist')
 	},
 	module: {
-		rules: [
-			{
-				test: /\.html$/,
-				use: 'html-loader'
-			}, {
-				test: /\.css$/,
-				use: ExtractTextPlugin.extract({
-					fallback: "style-loader",
-					use: "css-loader"
-				})
-			}, {
-				test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'
-			}]
+		rules: [{
+			test: /\.html$/,
+			use: 'html-loader'
+		}, {
+			test: /\.css$/,
+			use: ExtractTextPlugin.extract({
+				fallback: "style-loader",
+				use: "css-loader"
+			})
+		}, {
+			test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'
+		}]
 	},
 	plugins: [new HtmlWebpackPlugin({
 		template: "./index.html"
 	}),
 	new ExtractTextPlugin("styles.css")
-	]
+	],
+	devServer: {
+		contentBase: path.join(__dirname, "dist"),
+		compress: true,
+		port: 9000
+	}
 };
