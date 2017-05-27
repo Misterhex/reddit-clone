@@ -1,5 +1,6 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: './index.js',
@@ -14,12 +15,17 @@ module.exports = {
 				use: 'html-loader'
 			}, {
 				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: "css-loader"
+				})
 			}, {
 				test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'
 			}]
 	},
 	plugins: [new HtmlWebpackPlugin({
 		template: "./index.html"
-	})]
+	}),
+	new ExtractTextPlugin("styles.css")
+	]
 };
