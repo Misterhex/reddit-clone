@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -25,7 +26,11 @@ module.exports = {
 	plugins: [new HtmlWebpackPlugin({
 		template: "./index.html"
 	}),
-	new ExtractTextPlugin("styles.css")
+	new ExtractTextPlugin("styles.css"),
+	new webpack.ProvidePlugin({
+		$: 'jquery',
+		jQuery: 'jquery'
+	})
 	],
 	devServer: {
 		contentBase: path.join(__dirname, "dist"),

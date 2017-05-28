@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node_modules/.bin/webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "clean": "rm -rf ./dist"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1"
   }
 }
