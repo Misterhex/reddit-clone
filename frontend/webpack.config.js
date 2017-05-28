@@ -4,24 +4,30 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: './index.js',
+	entry: './index.jsx',
 	output: {
 		filename: 'bundle.[hash].js',
 		path: path.resolve(__dirname, 'dist')
 	},
 	module: {
-		rules: [{
-			test: /\.html$/,
-			use: 'html-loader'
-		}, {
-			test: /\.css$/,
-			use: ExtractTextPlugin.extract({
-				fallback: "style-loader",
-				use: "css-loader"
-			})
-		}, {
-			test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'
-		}]
+		rules: [
+			{
+				test: /\.html$/,
+				use: 'html-loader'
+			}, {
+				test: /\.css$/,
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: "css-loader"
+				})
+			}, {
+				test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'
+			}, {
+				test: /\.jsx$/,
+				exclude: /node_modules/,
+				loaders: ["babel-loader"],
+			}
+		]
 	},
 	plugins: [new HtmlWebpackPlugin({
 		template: "./index.html"
@@ -35,6 +41,8 @@ module.exports = {
 	devServer: {
 		contentBase: path.join(__dirname, "dist"),
 		compress: true,
-		port: 9000
-	}
+		port: 9000,
+		inline: true
+	},
+	devtool: 'source-map'
 };
