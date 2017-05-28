@@ -1,17 +1,19 @@
 import 'jquery';
-import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap/dist/js/bootstrap.min.js";
+
+import 'bootstrap/dist/css/bootstrap.css';
 import './css/starter-template.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Nav from './components/nav.jsx';
+import TopicList from './components/topicList.jsx';
 
 ReactDOM.render(
     <div>
         <Nav></Nav>
-        <h1 className="starter-template">Hello, world!</h1>
+        <TopicList></TopicList>
     </div>,
   document.getElementById('root')
 );

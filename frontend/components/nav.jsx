@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const title = "Reddit Clone";
+
 export default class Nav extends React.Component {
   render() {
     return (
@@ -14,14 +16,9 @@ export default class Nav extends React.Component {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-        <a className="navbar-brand" href="#">Project name</a>
+        <a className="navbar-brand" href="#">{title}</a>
       </div>
       <div id="navbar" className="collapse navbar-collapse">
-        <ul className="nav navbar-nav">
-          <li className="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
       </div>
     </div>
   </nav>
