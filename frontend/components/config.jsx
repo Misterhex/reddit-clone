@@ -1,7 +1,7 @@
 export default class Config {
 
     constructor(){
-        this.serverUrl = "http://localhost:3000/";
+        this.serverUrl = "http://localhost:8080/";
     }
 
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Vote from './vote.jsx';
 
 export default class TopicList extends React.Component  {
 
@@ -10,20 +11,15 @@ export default class TopicList extends React.Component  {
     render() {
 
         const topic = this.props.topic;
+        const topicId = this.props.topic.uuid;
+        const index = this.props.index + 1;
+        const handleUpvote = this.props.handleUpvote;
+
         return (
         <tr>
-            <th scope="row">{this.props.index + 1}</th>
+            <th scope="row">{index}</th>
             <td>
-                <div class="btn-group" role="group" aria-label="...">
-                    {topic.vote}
-                    &nbsp; &nbsp;
-                    <button type="button" class="btn btn-default">
-                        <i className="glyphicon glyphicon-chevron-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-default">
-                        <i className="glyphicon glyphicon-chevron-down"></i>
-                    </button>
-                </div>
+                <Vote vote={topic.vote} topicId={topicId} handleUpvote={handleUpvote} />
             </td>
             <td>{topic.headline}</td>
         </tr>

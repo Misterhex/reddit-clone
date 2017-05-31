@@ -11,6 +11,7 @@ export default class TopicList extends React.Component {
     super(props);
 
     this.config = new config();
+    this.topicsEndpoint = this.config.serverUrl + "api/topics/";
 
     this.state = {
       topics: []
@@ -19,10 +20,11 @@ export default class TopicList extends React.Component {
   }
 
   componentDidMount() {
+    this.getTop20();
+  }
 
-    const topicsEndpoint = this.config.serverUrl + "api/topics/";
-
-    axios.get(topicsEndpoint)
+  getTop20() {
+    axios.get(this.topicsEndpoint)
       .then(res => {
         this.setState({ 
           topics: res.data 
@@ -30,9 +32,22 @@ export default class TopicList extends React.Component {
       });
   }
 
+  handleUpvote(topicId) {
+    axios.post(this.topicsEndpoint, {
+      topicId: topicId,
+      voteType: "up"
+    })
+    .then(_=> {
+      this.getTop20();
+    });
+  }
+
   render() {
 
-    const topicList = this.state.topics.map((topic,i) => <Topic key={topic.uuid} index={i} topic={topic}></Topic> );
+    const handleUpvote = this.handleUpvote.bind(this);
+
+    const topicList = this.state.topics.map((topic,i) => 
+      <Topic key={topic.uuid} index={i} topic={topic} handleUpvote={handleUpvote}></Topic> );
 
     return (
 <div className="container">
@@ -40,13 +55,12 @@ export default class TopicList extends React.Component {
   <thead>
     <tr>
       <th className="col-md-3">#</th>
-      <th className="col-md-3">Votes</th>
-      <th className="col-md-6">Headline</th>
+      <th className="col-md-3">Votes </th>
+      <th className="col-md-6">Headline </th>
     </tr>
   </thead>
   <tbody>
     {topicList}
-    
   </tbody>
 </table>
 </div>
