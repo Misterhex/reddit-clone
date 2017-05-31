@@ -13,7 +13,18 @@ export default class TopicList extends React.Component  {
         return (
         <tr>
             <th scope="row">{this.props.index + 1}</th>
-            <td>{topic.vote}</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="...">
+                    {topic.vote}
+                    &nbsp; &nbsp;
+                    <button type="button" class="btn btn-default">
+                        <i className="glyphicon glyphicon-chevron-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        <i className="glyphicon glyphicon-chevron-down"></i>
+                    </button>
+                </div>
+            </td>
             <td>{topic.headline}</td>
         </tr>
         )
