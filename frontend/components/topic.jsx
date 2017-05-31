@@ -8,11 +8,13 @@ export default class TopicList extends React.Component  {
     }
 
     render() {
+
+        const topic = this.props.topic;
         return (
         <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
+            <th scope="row">{this.props.index + 1}</th>
+            <td>{topic.vote}</td>
+            <td>{topic.headline}</td>
         </tr>
         )
     }

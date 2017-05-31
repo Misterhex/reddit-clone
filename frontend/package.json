@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node_modules/.bin/webpack-dev-server",
     "build": "webpack",
-    "clean": "rm -rf ./dist"
+    "clean": "rm -rf ./dist",
+    "api": "json-server --watch ./json-server/db.json --routes ./json-server/routes.json"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +29,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "axios": "^0.16.1",
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "react": "^15.5.4",
