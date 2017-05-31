@@ -12,6 +12,7 @@ export default class TopicList extends React.Component {
 
     this.config = new config();
     this.topicsEndpoint = this.config.serverUrl + "api/topics/";
+    this.voteEndpoint = this.config.serverUrl + "api/votes/";
 
     this.state = {
       topics: []
@@ -33,7 +34,7 @@ export default class TopicList extends React.Component {
   }
 
   handleUpvote(topicId) {
-    axios.post(this.topicsEndpoint, {
+    axios.post(this.voteEndpoint, {
       topicId: topicId,
       voteType: "up"
     })
