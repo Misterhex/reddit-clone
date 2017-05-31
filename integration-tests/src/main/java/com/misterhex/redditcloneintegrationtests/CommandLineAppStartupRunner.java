@@ -39,7 +39,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             postData.put("headline", headline);
 
             this.restTemplate.postForEntity(new URI(topicApiEndpoint), postData, Object.class);
-            logger.info(String.format("added %d topic...", headline));
+            logger.info(String.format("added %s topic...", headline));
         }
 
         logger.info(String.format("completed adding %d topics...", headlines.size()));
