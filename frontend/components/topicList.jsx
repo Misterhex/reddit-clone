@@ -4,16 +4,15 @@ import axios from 'axios';
 
 import Topic from './topic.jsx';
 import NoData from './noData.jsx';
-import config from './config.jsx';
+import Config from 'Config';
 
 export default class TopicList extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.config = new config();
-    this.topicsEndpoint = this.config.serverUrl + "api/topics/";
-    this.voteEndpoint = this.config.serverUrl + "api/votes/";
+    this.topicsEndpoint = Config.serverUrl + "api/topics/";
+    this.voteEndpoint = Config.serverUrl + "api/votes/";
 
     this.state = {
       topics: []

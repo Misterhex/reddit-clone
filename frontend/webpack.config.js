@@ -44,5 +44,12 @@ module.exports = {
 		port: 9000,
 		inline: true
 	},
-	devtool: 'source-map'
+	devtool: 'source-map',
+	externals: {
+  		'Config': JSON.stringify(process.env.ENV === 'production' ? {
+    		serverUrl: "https://localhost:8080/"
+  		} : {
+    		serverUrl: "http://localhost:3000/"
+  		})
+	}
 };
