@@ -1,5 +1,6 @@
 package com.misterhex.redditclone;
 
+import com.misterhex.redditclone.models.Vote;
 import com.misterhex.redditclone.repositories.ITopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +26,7 @@ public class VoteController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity VoteTopic(@RequestBody  Vote vote){
+    public ResponseEntity VoteTopic(@RequestBody Vote vote){
         if (vote == null)
             throw new IllegalArgumentException();
 

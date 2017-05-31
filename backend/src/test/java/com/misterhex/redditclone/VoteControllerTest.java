@@ -1,5 +1,7 @@
 package com.misterhex.redditclone;
 
+import com.misterhex.redditclone.models.Topic;
+import com.misterhex.redditclone.models.Vote;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -56,7 +57,7 @@ public class VoteControllerTest {
     public void voteTopic_upVote_topicVoteIncreased() throws Exception {
 
         // get created topic
-        Topic[] topics = this.restTemplate.getForObject(new URI(topicEndpoint + "top20"), Topic[].class);
+        Topic[] topics = this.restTemplate.getForObject(new URI(topicEndpoint), Topic[].class);
         UUID topicId = topics[0].getUuid();
         assertEquals(0, topics[0].getVote());
 
@@ -65,7 +66,7 @@ public class VoteControllerTest {
         ResponseEntity<Object> resp = this.restTemplate.postForEntity(this.voteEndpoint, httpEntity, Object.class);
         assertEquals(resp.getStatusCode(), HttpStatus.OK);
 
-        topics = this.restTemplate.getForObject(new URI(topicEndpoint + "top20"), Topic[].class);
+        topics = this.restTemplate.getForObject(new URI(topicEndpoint), Topic[].class);
         assertEquals(1, topics[0].getVote());
     }
 

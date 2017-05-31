@@ -1,5 +1,6 @@
 package com.misterhex.redditclone;
 
+import com.misterhex.redditclone.models.Topic;
 import com.misterhex.redditclone.repositories.ITopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class TopicController {
         this.topicRepository = topicRepository;
     }
 
-    @RequestMapping(path = "top20", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Topic>> top20() {
         Collection<Topic> top20 = this.topicRepository.top20();
         return ResponseEntity.ok(top20);

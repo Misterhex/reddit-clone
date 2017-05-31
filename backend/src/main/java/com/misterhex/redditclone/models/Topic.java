@@ -1,4 +1,4 @@
-package com.misterhex.redditclone;
+package com.misterhex.redditclone.models;
 
 import java.util.UUID;
 

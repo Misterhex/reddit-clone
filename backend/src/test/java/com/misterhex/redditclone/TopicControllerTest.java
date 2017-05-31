@@ -1,5 +1,6 @@
 package com.misterhex.redditclone;
 
+import com.misterhex.redditclone.models.Topic;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,8 +38,7 @@ public class TopicControllerTest {
     public void setUp() throws Exception {
         endpoint = "http://localhost:" + port + "/" + "api/topics/";
 
-        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity(endpoint + "top20", Topic[].class);
-        int count = getResp.getBody().length;
+        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity(endpoint, Topic[].class);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class TopicControllerTest {
         ResponseEntity<Object> postResp = this.restTemplate.postForEntity(endpoint, postBody, Object.class);
         assertEquals(postResp.getStatusCode(), HttpStatus.CREATED);
 
-        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity(endpoint + "top20", Topic[].class);
+        ResponseEntity<Topic[]> getResp = this.restTemplate.getForEntity(endpoint, Topic[].class);
 
         assertEquals(getResp.getStatusCode(), HttpStatus.OK);
         Topic[] topics = getResp.getBody();

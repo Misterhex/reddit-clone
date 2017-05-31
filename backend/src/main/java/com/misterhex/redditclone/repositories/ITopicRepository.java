@@ -1,7 +1,7 @@
 package com.misterhex.redditclone.repositories;
 
-import com.misterhex.redditclone.Topic;
-import com.misterhex.redditclone.Vote;
+import com.misterhex.redditclone.models.Topic;
+import com.misterhex.redditclone.models.Vote;
 
 import java.util.Collection;
 import java.util.UUID;
