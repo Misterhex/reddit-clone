@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import Topic from './topic.jsx';
+import NoData from './noData.jsx';
 import config from './config.jsx';
 
 export default class TopicList extends React.Component {
@@ -50,6 +51,11 @@ export default class TopicList extends React.Component {
     const topicList = this.state.topics.map((topic,i) => 
       <Topic key={topic.uuid} index={i} topic={topic} handleUpvote={handleUpvote}></Topic> );
 
+      if (topicList.length == 0 ) {
+        return (
+          <NoData />
+        );
+      } else {
     return (
 <div className="container">
 <table className="table table-striped">
@@ -65,6 +71,7 @@ export default class TopicList extends React.Component {
   </tbody>
 </table>
 </div>
-        )
+    );
+      }
     }
 }
