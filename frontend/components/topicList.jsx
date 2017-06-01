@@ -20,8 +20,9 @@ export default class TopicList extends React.Component {
           return (
             <NoData />
           );
-      } else {
-          return (
+      }
+      
+      return (
         <div>
         <table className="table table-striped">
           <thead>
@@ -36,7 +37,6 @@ export default class TopicList extends React.Component {
           </tbody>
         </table>
         </div>
-            );
-      }
+      );
     }
 }

@@ -35,7 +35,8 @@ export default class TopicListContainer extends React.Component {
         });
     }
 
-    addNewTopic() {
+    addNewTopic(headline) {
+      debugger;
       axios.post(this.topicsEndpoint, {
         "headline": headline
       })
@@ -57,7 +58,7 @@ export default class TopicListContainer extends React.Component {
     render() {
         return (
             <div>
-                <AddNewTopic/>
+                <AddNewTopic onAddNewTopic={this.addNewTopic} />
                 <br/>
                 <TopicList topics={this.state.topics} handleUpvote={this.handleUpvote}/>
             </div>
