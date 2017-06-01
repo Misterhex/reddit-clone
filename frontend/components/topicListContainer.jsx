@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import TopicList from './topicList.jsx';
 import AddNewTopic from './addNewTopic.jsx';
+import NoData from './noData.jsx';
 
 export default class TopicListContainer extends React.Component {
 
@@ -55,11 +56,20 @@ export default class TopicListContainer extends React.Component {
     }
 
     render() {
+
+        let topicList;
+        
+        if (this.state.topics) {
+            topicList = <TopicList topics={this.state.topics} handleUpvote={this.handleUpvote}/>
+        } else {
+            topicList = <NoData/>
+        }
+
         return (
             <div>
                 <AddNewTopic onAddNewTopic={this.addNewTopic} />
                 <br/>
-                <TopicList topics={this.state.topics} handleUpvote={this.handleUpvote}/>
+                {topicList}
             </div>
         );
     }

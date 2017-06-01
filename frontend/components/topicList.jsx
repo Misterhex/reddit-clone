@@ -16,12 +16,6 @@ export default class TopicList extends React.Component {
       <Topic key={topic.uuid} index={i} topic={topic} handleUpvote={this.props.handleUpvote}></Topic> 
     );
 
-      if (topicList.length == 0 ) {
-          return (
-            <NoData />
-          );
-      }
-      
       return (
         <div>
         <table className="table table-striped">
