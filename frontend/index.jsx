@@ -8,12 +8,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Nav from './components/nav.jsx';
-import TopicList from './components/topicList.jsx';
+import TopicListContainer from './components/topicListContainer.jsx';
 
 ReactDOM.render(
-    <div>
+    <div className="container">
         <Nav></Nav>
-        <TopicList></TopicList>
+        <br/>
+        <TopicListContainer></TopicListContainer>
     </div>,
   document.getElementById('root')
 );
