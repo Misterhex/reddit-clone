@@ -36,7 +36,6 @@ export default class TopicListContainer extends React.Component {
     }
 
     addNewTopic(headline) {
-      debugger;
       axios.post(this.topicsEndpoint, {
         "headline": headline
       })
