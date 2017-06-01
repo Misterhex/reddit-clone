@@ -2,7 +2,7 @@
 
 cd frontend
 npm install
-npm run build
+export ENV=production && npm run build
 cd ..
 rm -rf ./backend/src/main/resources/public/
 mkdir -p ./backend/src/main/resources/public/

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Config from 'Config';
 import axios from 'axios';
-
 import TopicList from './topicList.jsx';
 import AddNewTopic from './addNewTopic.jsx';
 import NoData from './noData.jsx';
@@ -73,6 +72,4 @@ export default class TopicListContainer extends React.Component {
             </div>
         );
     }
-
 }
-
