@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: {
-		main: './index.jsx',
+		main: './src/index.tsx',
 		vendor: ['react', 'react-dom', 'jquery', 'bootstrap']
 	},
 	output: {
@@ -25,15 +25,17 @@ module.exports = {
 				})
 			}, {
 				test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'
-			}, {
-				test: /\.jsx$/,
-				exclude: /node_modules/,
-				loaders: ["babel-loader"],
+			}, { 
+				test: /\.tsx?$/, 
+				loader: "awesome-typescript-loader" 
+			}, { 
+				enforce: "pre", test: /\.js$/, 
+				loader: "source-map-loader" 
 			}
 		]
 	},
 	plugins: [new HtmlWebpackPlugin({
-		template: "./index.html"
+		template: "./src/index.html"
 	}),
 	new ExtractTextPlugin("styles.css"),
 	new webpack.ProvidePlugin({
