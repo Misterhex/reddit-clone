@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node_modules/.bin/webpack-dev-server",
-    "build": "node_modules/.bin/webpack",
+    "build": "node_modules/.bin/webpack -p",
     "clean": "rm -rf ./dist",
     "api": "node_modules/.bin/json-server --watch ./json-server/db.json --routes ./json-server/routes.json"
   },

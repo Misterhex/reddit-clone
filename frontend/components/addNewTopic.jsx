@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-export default class AddNewTopic extends React.Component {
+class addNewTopic extends React.Component {
 
     constructor(props) {
       super(props);
@@ -35,3 +35,5 @@ export default class AddNewTopic extends React.Component {
         )
     }
 }
+
+export default addNewTopic;
