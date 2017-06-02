@@ -3,7 +3,6 @@
 ### pull from dockerhub
 ```
 docker run -it --rm -p 8080:8080 misterhex-reddit-clone
-http://localhost:8080 
 ```
 
 ### build
