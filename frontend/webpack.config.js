@@ -4,9 +4,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: './index.jsx',
+	entry: {
+		main: './index.jsx',
+		vendor: ['react', 'react-dom', 'jquery', 'bootstrap']
+	},
 	output: {
-		filename: 'bundle.[hash].js',
+		filename: '[name].[chunkhash].js',
 		path: path.resolve(__dirname, 'dist')
 	},
 	module: {
@@ -36,6 +39,9 @@ module.exports = {
 	new webpack.ProvidePlugin({
 		$: 'jquery',
 		jQuery: 'jquery'
+	}),
+	new webpack.optimize.CommonsChunkPlugin({
+		name: 'vendor' // Specify the common bundle's name.
 	})
 	],
 	devServer: {
@@ -46,10 +52,10 @@ module.exports = {
 	},
 	devtool: 'source-map',
 	externals: {
-  		'Config': JSON.stringify(process.env.ENV === 'production' ? {
-    		serverUrl: "http://localhost:8080/"
-  		} : {
-    		serverUrl: "http://localhost:3000/"
-  		})
+		'Config': JSON.stringify(process.env.ENV === 'production' ? {
+			serverUrl: "http://localhost:8080/"
+		} : {
+				serverUrl: "http://localhost:3000/"
+			})
 	}
 };

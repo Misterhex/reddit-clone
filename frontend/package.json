@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node_modules/.bin/webpack-dev-server",
-    "build": "webpack",
+    "build": "node_modules/.bin/webpack",
     "clean": "rm -rf ./dist",
-    "api": "json-server --watch ./json-server/db.json --routes ./json-server/routes.json"
+    "api": "node_modules/.bin/json-server --watch ./json-server/db.json --routes ./json-server/routes.json"
   },
   "author": "",
   "license": "ISC",
