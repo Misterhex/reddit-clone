@@ -16,6 +16,7 @@ export default class TopicListContainer extends React.Component {
         this.getTop20 = this.getTop20.bind(this);
         this.addNewTopic = this.addNewTopic.bind(this);
         this.handleUpvote = this.handleUpvote.bind(this);
+        this.handleDownvote = this.handleDownvote.bind(this);
 
         this.state = {
             topics: []
@@ -53,13 +54,24 @@ export default class TopicListContainer extends React.Component {
             this.getTop20();
         });
     }
+    
+    handleDownvote(topicId) {
+        axios.post(this.voteEndpoint, {
+            topicId: topicId,
+            voteType: "down"
+        })
+        .then(_=> {
+            this.getTop20();
+        });
+    }
+
 
     render() {
 
         let topicList;
         
         if (this.state.topics) {
-            topicList = <TopicList topics={this.state.topics} handleUpvote={this.handleUpvote}/>
+            topicList = <TopicList topics={this.state.topics} handleUpvote={this.handleUpvote} handleDownvote={this.handleDownvote}/>
         } else {
             topicList = <NoData/>
         }

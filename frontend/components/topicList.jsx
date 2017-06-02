@@ -13,7 +13,7 @@ export default class TopicList extends React.Component {
   render() {
 
     const topicList = this.props.topics.map((topic,i) => 
-      <Topic key={topic.uuid} index={i} topic={topic} handleUpvote={this.props.handleUpvote}></Topic> 
+      <Topic key={topic.uuid} index={i} topic={topic} handleUpvote={this.props.handleUpvote} handleDownvote={this.props.handleDownvote}></Topic> 
     );
 
       return (

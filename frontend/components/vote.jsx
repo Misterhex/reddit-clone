@@ -11,6 +11,7 @@ export default class Vote extends React.Component {
         const vote = this.props.vote;
         const topicId = this.props.topicId;
         const handleUpvote = this.props.handleUpvote;
+        const handleDownvote = this.props.handleDownvote;
 
         return (
                 <div>
@@ -20,12 +21,11 @@ export default class Vote extends React.Component {
                         <button type="button" className="btn btn-default" onClick={()=> handleUpvote(topicId)}>
                             <i className="glyphicon glyphicon-chevron-up"></i>
                         </button>
-                        <button type="button" className="btn btn-default">
+                        <button type="button" className="btn btn-default" onClick={()=> handleDownvote(topicId)}>
                             <i className="glyphicon glyphicon-chevron-down"></i>
                         </button>
                     </div>
                 </div>
         )
-
     }
 }
