@@ -5,8 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: {
-		main: './index.jsx',
+		main: './src/index.tsx',
 		vendor: ['react', 'react-dom', 'jquery', 'bootstrap']
+	},
+	resolve: {
+		extensions: [".ts", ".tsx", ".js", ".json"]
 	},
 	output: {
 		filename: '[name].[chunkhash].js',
@@ -26,23 +29,33 @@ module.exports = {
 			}, {
 				test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'
 			}, {
-				test: /\.jsx$/,
-				exclude: /node_modules/,
-				loaders: ["babel-loader"],
+				test: /\.tsx?$/,
+				loader: "awesome-typescript-loader"
+			}, {
+				enforce: "pre", test: /\.js$/,
+				loader: "source-map-loader"
 			}
 		]
 	},
-	plugins: [new HtmlWebpackPlugin({
-		template: "./index.html"
-	}),
-	new ExtractTextPlugin("styles.css"),
-	new webpack.ProvidePlugin({
-		$: 'jquery',
-		jQuery: 'jquery'
-	}),
-	new webpack.optimize.CommonsChunkPlugin({
-		name: 'vendor' // Specify the common bundle's name.
-	})
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: "./src/index.html"
+		}),
+		new ExtractTextPlugin("styles.css"),
+		new webpack.ProvidePlugin({
+			$: 'jquery',
+			jQuery: 'jquery'
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor'
+		}),
+		new webpack.DefinePlugin({
+			'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+			include: /\.min\.js$/,
+			minimize: true
+		})
 	],
 	devServer: {
 		contentBase: path.join(__dirname, "dist"),

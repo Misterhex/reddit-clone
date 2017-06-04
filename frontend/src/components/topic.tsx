@@ -1,10 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Vote from './vote.jsx';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Vote } from './vote';
+import { TopicDto } from './topicDto';
 
-export default class TopicList extends React.Component  {
+export interface Property {
+    topic: TopicDto
+    index: number
+    handleUpvote(topicId: string): void
+    handleDownvote(topicId: string): void
+}
 
-    constructor(props) {
+export class Topic extends React.Component<Property, undefined> {
+
+    constructor(props: Property) {
         super(props);
     }
 

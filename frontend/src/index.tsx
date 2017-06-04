@@ -2,10 +2,10 @@ import 'jquery';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/starter-template.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Nav from './components/nav.jsx';
-import TopicListContainer from './components/topicListContainer.jsx';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Nav } from './components/nav';
+import { TopicListContainer } from './components/topicListContainer';
 
 ReactDOM.render(
     <div className="container">

@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 const title = "Reddit Clone";
 
-export default class Nav extends React.Component {
+export class Nav extends React.Component<undefined, undefined> {
   render() {
     return (
   <nav className="navbar navbar-inverse navbar-fixed-top">
