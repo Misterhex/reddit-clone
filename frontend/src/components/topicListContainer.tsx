@@ -18,7 +18,7 @@ export class TopicListContainer extends React.Component<Property, State> {
     voteEndpoint: string;
     topicsEndpoint: string;
 
-    constructor(props : Property) {
+    constructor(props: Property) {
         super(props);
 
         const c = new Config();
@@ -35,46 +35,41 @@ export class TopicListContainer extends React.Component<Property, State> {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.getTop20();
+    }
+
+    async getTop20() {
+        const res = await axios.get(this.topicsEndpoint);
+        this.setState({
+            topics: res.data
+        });
+    }
+
+    async addNewTopic(headline: string) {
+        await axios.post(this.topicsEndpoint, {
+            "headline": headline
+        });
+
+        await this.getTop20();
+    }
+
+    async handleUpvote(topicId: string) {
+        await axios.post(this.voteEndpoint, {
+            topicId: topicId,
+            voteType: "up"
+        });
+
         this.getTop20();
     }
 
-    getTop20() {
-        axios.get(this.topicsEndpoint)
-            .then(res => {
-                this.setState({
-                    topics: res.data
-                });
-            });
-    }
-
-    addNewTopic(headline: string) {
-        axios.post(this.topicsEndpoint, {
-            "headline": headline
-        })
-            .then(res => {
-                this.getTop20();
-            });
-    }
-
-    handleUpvote(topicId: string) {
-        axios.post(this.voteEndpoint, {
-            topicId: topicId,
-            voteType: "up"
-        })
-            .then(_ => {
-                this.getTop20();
-            });
-    }
-
-    handleDownvote(topicId: string) {
-        axios.post(this.voteEndpoint, {
+    async handleDownvote(topicId: string) {
+        await axios.post(this.voteEndpoint, {
             topicId: topicId,
             voteType: "down"
-        })
-            .then(_ => {
-                this.getTop20();
-            });
+        });
+
+        this.getTop20();
     }
 
 
