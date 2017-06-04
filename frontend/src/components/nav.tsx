@@ -3,10 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 const title = "Reddit Clone";
 
-interface MyProps {}
-interface MyState {}
-
-export default class Nav extends React.Component<MyProps, MyState> {
+export class Nav extends React.Component<undefined, undefined> {
   render() {
     return (
   <nav className="navbar navbar-inverse navbar-fixed-top">

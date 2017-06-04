@@ -1,17 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Config from 'Config';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Config } from './config';
 import axios from 'axios';
-import TopicList from './topicList';
-import AddNewTopic from './addNewTopic';
-import NoData from './noData';
+import { TopicList } from './topicList';
+import { AddNewTopic } from './addNewTopic';
+import { NoData } from './noData';
+import { TopicDto } from './topicDto';
 
-export default class TopicListContainer extends React.Component {
+export interface Property { }
 
-    constructor(props) {
+export interface State {
+    topics: TopicDto[]
+}
+
+export class TopicListContainer extends React.Component<Property, State> {
+
+    voteEndpoint: string;
+    topicsEndpoint: string;
+
+    constructor(props : Property) {
         super(props);
-        this.topicsEndpoint = Config.serverUrl + "api/topics/";
-        this.voteEndpoint = Config.serverUrl + "api/votes/";
+
+        const c = new Config();
+        this.topicsEndpoint = c.serverUrl + "api/topics/";
+        this.voteEndpoint = c.serverUrl + "api/votes/";
 
         this.getTop20 = this.getTop20.bind(this);
         this.addNewTopic = this.addNewTopic.bind(this);
@@ -29,57 +41,57 @@ export default class TopicListContainer extends React.Component {
 
     getTop20() {
         axios.get(this.topicsEndpoint)
-        .then(res => {
-            this.setState({ 
-                topics: res.data 
+            .then(res => {
+                this.setState({
+                    topics: res.data
+                });
             });
-        });
     }
 
-    addNewTopic(headline) {
-      axios.post(this.topicsEndpoint, {
-        "headline": headline
-      })
-      .then(res => {
-        this.getTop20();
-      });
+    addNewTopic(headline: string) {
+        axios.post(this.topicsEndpoint, {
+            "headline": headline
+        })
+            .then(res => {
+                this.getTop20();
+            });
     }
 
-    handleUpvote(topicId) {
+    handleUpvote(topicId: string) {
         axios.post(this.voteEndpoint, {
             topicId: topicId,
             voteType: "up"
         })
-        .then(_=> {
-            this.getTop20();
-        });
+            .then(_ => {
+                this.getTop20();
+            });
     }
-    
-    handleDownvote(topicId) {
+
+    handleDownvote(topicId: string) {
         axios.post(this.voteEndpoint, {
             topicId: topicId,
             voteType: "down"
         })
-        .then(_=> {
-            this.getTop20();
-        });
+            .then(_ => {
+                this.getTop20();
+            });
     }
 
 
     render() {
 
         let topicList;
-        
+
         if (this.state.topics) {
-            topicList = <TopicList topics={this.state.topics} handleUpvote={this.handleUpvote} handleDownvote={this.handleDownvote}/>
+            topicList = <TopicList topics={this.state.topics} handleUpvote={this.handleUpvote} handleDownvote={this.handleDownvote} />
         } else {
-            topicList = <NoData/>
+            topicList = <NoData />
         }
 
         return (
             <div>
                 <AddNewTopic onAddNewTopic={this.addNewTopic} />
-                <br/>
+                <br />
                 {topicList}
             </div>
         );

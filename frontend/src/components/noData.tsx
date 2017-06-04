@@ -1,10 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-export default function() {
-    return (
-        <div className="container">
-            <p> No topics available </p>
-        </div>
-    )
+export class NoData extends React.Component<undefined, undefined> {
+
+    render() {
+        return (
+            <div className="container">
+                <p> No topics available </p>
+            </div>
+        )
+    }
 }

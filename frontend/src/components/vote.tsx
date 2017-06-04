@@ -1,9 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-export default class Vote extends React.Component {
+export interface Property {
+    vote: number
+    topicId: string
+    handleUpvote(topicId: string) : void
+    handleDownvote(topicId: string) : void
+}
 
-    constructor(props) {
+export class Vote extends React.Component<Property, undefined> {
+
+    constructor(props: Property) {
         super(props);
     }
 
