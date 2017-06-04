@@ -6,7 +6,7 @@ ADD backend backend
 ADD frontend frontend
 WORKDIR /root/frontend
 RUN npm install
-RUN export ENV=production && npm run build
+RUN export NODE_ENV=production && npm run build
 WORKDIR /root
 RUN mkdir -p ./backend/src/main/resources/public/
 RUN mv ./frontend/dist/* ./backend/src/main/resources/public/
