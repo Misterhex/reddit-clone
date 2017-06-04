@@ -5,8 +5,8 @@ export class Config {
 
     constructor(){
         if (NODE_ENV === "production")
-            this.serverUrl = "http://localhost:8080";
+            this.serverUrl = "http://localhost:8080/";
         else            
-            this.serverUrl = "http://localhost:3000";
+            this.serverUrl = "http://localhost:3000/";
     }
 }
