@@ -2,7 +2,7 @@
 
 ### Docker cloud (hosted)
 ```
-http://reddit-clone-bf84c083-1.0eb5db3c.cont.dockerapp.io:8080
+http://reddit-clone-bf84c083.602272e5.svc.dockerapp.io:8080
 ```
 
 ### pull from dockerhub
