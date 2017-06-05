@@ -1,5 +1,10 @@
 # reddit-clone
 
+### Docker cloud (hosted)
+```
+http://reddit-clone-bf84c083-1.0eb5db3c.cont.dockerapp.io:8080
+```
+
 ### pull from dockerhub
 ```
 docker run -it --rm -p 8080:8080 misterhex/reddit-clone:latest
